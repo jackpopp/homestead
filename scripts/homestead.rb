@@ -16,9 +16,9 @@ class Homestead
     end
 
     # Configure Port Forwarding To The Box
-    config.vm.network "forwarded_port", guest: 80, host: 8000
-    config.vm.network "forwarded_port", guest: 3306, host: 33060
-    config.vm.network "forwarded_port", guest: 5432, host: 54320
+    settings["forwarded_ports"].each do |ports|
+      config.vm.network "forwarded_port", guest: ports["guest"], host: ports["host"]
+    end
 
     # Configure The Public Key For SSH Access
     config.vm.provision "shell" do |s|
